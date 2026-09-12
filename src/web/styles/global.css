@@ -145,11 +145,34 @@ select {
   aspect-ratio: 16 / 11;
   border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--line);
-  background: radial-gradient(ellipse at 30% 70%, #eaf5df 0%, transparent 55%),
-    radial-gradient(ellipse at 75% 30%, #e4f2e8 0%, transparent 50%),
-    linear-gradient(160deg, #fdf6ea 0%, #f2ecd8 100%);
+  box-shadow: var(--shadow), inset 0 0 0 8px rgba(255, 255, 255, 0.5);
+  border: 5px solid #e3c187;
+  background-color: #f4e7c3;
+  /* 종이 질감 + 존별 초록 언덕 + 옅은 잔디 돗트 텍스처를 겹쳐서 실제 지도처럼 보이게 함 */
+  background-image: radial-gradient(circle at 22% 60%, #cdeab8 0%, #cdeab8 15%, transparent 33%),
+    radial-gradient(circle at 66% 28%, #cdeab8 0%, #cdeab8 14%, transparent 31%),
+    radial-gradient(circle at 80% 70%, #cdeab8 0%, #cdeab8 14%, transparent 31%),
+    radial-gradient(ellipse at 15% 20%, rgba(255, 255, 255, 0.55) 0%, transparent 45%),
+    repeating-radial-gradient(circle at 0 0, rgba(94, 130, 66, 0.16) 0px, rgba(94, 130, 66, 0.16) 1.6px, transparent 1.6px, transparent 13px),
+    linear-gradient(160deg, #f8ecc9 0%, #efe0b3 100%);
+}
+
+.map-canvas::after {
+  /* 낡은 지도 느낌의 비네트 */
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 40px rgba(150, 110, 60, 0.18);
+}
+
+.map-compass {
+  position: absolute;
+  right: 14px;
+  top: 12px;
+  font-size: 26px;
+  opacity: 0.75;
+  filter: drop-shadow(0 2px 2px rgba(120, 90, 60, 0.2));
 }
 
 .map-path {
@@ -161,11 +184,11 @@ select {
 
 .map-path path {
   fill: none;
-  stroke: var(--coral);
-  stroke-width: 0.6;
+  stroke: #c98a4b;
+  stroke-width: 1.3;
   stroke-linecap: round;
-  stroke-dasharray: 2.2 3;
-  opacity: 0.55;
+  stroke-dasharray: 3 2.6;
+  opacity: 0.6;
 }
 
 .map-deco {
@@ -193,6 +216,7 @@ select {
 }
 
 .map-pin .pin-icon {
+  position: relative;
   width: 64px;
   height: 64px;
   display: flex;
@@ -203,6 +227,21 @@ select {
   background: var(--paper);
   box-shadow: var(--shadow);
   border: 3px solid var(--coral);
+}
+
+.map-pin .pin-icon::after {
+  /* 땅에 서 있는 느낌을 주는 그림자 */
+  content: '';
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 8px;
+  background: rgba(90, 65, 35, 0.2);
+  border-radius: 50%;
+  filter: blur(1.5px);
+  z-index: -1;
 }
 
 .map-pin .pin-label {

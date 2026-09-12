@@ -27,6 +27,7 @@ export default function HomePage() {
       <p style={{ color: 'var(--ink-soft)' }}>궁금한 존을 눌러 들어가보세요.</p>
 
       <div className="map-canvas">
+        <span className="map-compass">🧭</span>
         <svg className="map-path" viewBox="0 0 100 100" preserveAspectRatio="none">
           <path d="M 22 60 C 32 38, 50 22, 66 28 C 78 32, 76 54, 80 70" />
         </svg>
