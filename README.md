@@ -2,6 +2,8 @@
 
 `동호회존_프로토타입_스펙.md`의 1차 검증용 웹 프로토타입입니다.
 
+- 저장소: https://github.com/kayari77-boop/community-center-prototype
+
 ## 실행 방법
 
 ```bash
