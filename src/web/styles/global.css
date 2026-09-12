@@ -138,43 +138,150 @@ select {
   justify-content: space-between;
 }
 
-.grid-zones {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
+/* 홈 화면: 아이콘 나열이 아니라, 각 존을 서로 다른 위치에 배치한 실제 "지도" */
+.map-canvas {
+  position: relative;
   margin-top: 20px;
-}
-
-.zone-card {
+  aspect-ratio: 16 / 11;
   border-radius: var(--radius);
-  padding: 26px 20px;
-  text-align: center;
+  overflow: hidden;
   box-shadow: var(--shadow);
-  border: 2px solid transparent;
-  transition: transform 0.15s ease;
+  border: 1px solid var(--line);
+  background: radial-gradient(ellipse at 30% 70%, #eaf5df 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 30%, #e4f2e8 0%, transparent 50%),
+    linear-gradient(160deg, #fdf6ea 0%, #f2ecd8 100%);
+}
+
+.map-path {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.map-path path {
+  fill: none;
+  stroke: var(--coral);
+  stroke-width: 0.6;
+  stroke-linecap: round;
+  stroke-dasharray: 2.2 3;
+  opacity: 0.55;
+}
+
+.map-deco {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  filter: drop-shadow(0 2px 3px rgba(120, 90, 60, 0.15));
+  opacity: 0.85;
+}
+
+.map-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 130px;
+  text-align: center;
   cursor: pointer;
+  transition: transform 0.15s ease;
 }
 
-.zone-card:hover {
-  transform: translateY(-3px);
+.map-pin:hover {
+  transform: translate(-50%, -50%) translateY(-4px);
 }
 
-.zone-card .emoji {
-  font-size: 42px;
-  display: block;
-  margin-bottom: 10px;
+.map-pin .pin-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  border: 3px solid var(--coral);
 }
 
-.zone-card.active {
-  background: linear-gradient(160deg, #fff1e2, #ffe3cf);
-  border-color: var(--coral);
+.map-pin .pin-label {
+  margin-top: 8px;
+  font-family: 'Jua', sans-serif;
+  font-size: 15px;
+  color: var(--coral-dark);
+  background: var(--paper);
+  padding: 3px 10px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(180, 130, 90, 0.12);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.zone-card.disabled {
-  background: #f4f0ea;
+.map-pin .pin-desc {
+  margin-top: 4px;
+  font-size: 11px;
   color: var(--ink-soft);
+  line-height: 1.3;
+}
+
+.map-pin.disabled {
   cursor: not-allowed;
-  opacity: 0.75;
+}
+
+.map-pin.disabled .pin-icon {
+  border-color: var(--line);
+  filter: grayscale(0.5);
+  opacity: 0.8;
+}
+
+.map-pin.disabled .pin-label {
+  color: var(--ink-soft);
+}
+
+.pin-badge {
+  font-size: 10px;
+  background: var(--line);
+  color: var(--ink-soft);
+  border-radius: 999px;
+  padding: 1px 7px;
+}
+
+@media (max-width: 480px) {
+  .map-canvas {
+    aspect-ratio: 4 / 5;
+  }
+
+  .map-pin {
+    width: 84px;
+  }
+
+  .map-pin .pin-icon {
+    width: 46px;
+    height: 46px;
+    font-size: 22px;
+    border-width: 2px;
+  }
+
+  .map-pin .pin-label {
+    font-size: 11px;
+    padding: 2px 7px;
+    gap: 3px;
+  }
+
+  .map-pin .pin-desc {
+    display: none;
+  }
+
+  .pin-badge {
+    font-size: 8px;
+    padding: 1px 5px;
+  }
+
+  .map-deco {
+    transform: translate(-50%, -50%) scale(0.7);
+  }
 }
 
 .badge {
